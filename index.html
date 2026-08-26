@@ -488,6 +488,14 @@
             content: '🔥 ';
         }
 
+        .card-badge.card-badge-special {
+            background: linear-gradient(135deg, #4a4038, #2e2620);
+        }
+
+        .card-badge.card-badge-special::before {
+            content: '⭐ ';
+        }
+
         .card-body {
             padding: 1.5rem 1.8rem 1.8rem;
             background: linear-gradient(to bottom, #2e1710, #1f0f09);
@@ -1643,6 +1651,31 @@
       "position": 3,
       "item": {
         "@type": "Product",
+        "name": "Picada Ahumada",
+        "image": "https://productospatagonicos.vercel.app/ahumada.jpeg",
+        "description": "Picada artesanal de especialidad (700 g): Chorizo seco, Mortadela, Bondiola ahumada, Queso criollo, Queso ahumado, Morcilla blanca, Morcilla negra.",
+        "brand": {
+          "@type": "Brand",
+          "name": "Productos Patagónicos"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "17000",
+          "priceCurrency": "ARS",
+          "availability": "https://schema.org/InStock",
+          "url": "https://productospatagonicos.vercel.app/#picadas",
+          "seller": {
+            "@type": "Organization",
+            "name": "Productos Patagónicos"
+          }
+        }
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+        "@type": "Product",
         "name": "La Odisea",
         "image": "https://productospatagonicos.vercel.app/odisea.jpeg",
         "description": "Picada artesanal (900 g): Queso criollo, Chorizo seco, Queso pategras, Longaniza española, Salame con queso, Bondiola, Mortadela.",
@@ -1665,7 +1698,7 @@
     },
     {
       "@type": "ListItem",
-      "position": 4,
+      "position": 5,
       "item": {
         "@type": "Product",
         "name": "Picada Simple",
@@ -1690,7 +1723,7 @@
     },
     {
       "@type": "ListItem",
-      "position": 5,
+      "position": 6,
       "item": {
         "@type": "Product",
         "name": "Embutidos EV",
@@ -1825,6 +1858,30 @@
                         <button type="button" class="btn-cart-add" data-product-id="tradicional">🛒 Agregar</button>
                     </div>
                     <a href="https://wa.me/542920667796?text=Hola!%20Quiero%20encargar%20la%20Picada%20tradicional." target="_blank" rel="noopener" class="btn-quick-order">📲 Pedir por WhatsApp</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-has-modal data-product-id="ahumada"
+                 data-modal-name="Picada Ahumada"
+                 data-modal-description="pican 6 y comen 4"
+                 data-modal-img="ahumada.jpeg"
+                 data-modal-badge="⭐ Especialidad"
+                 data-modal-price="$17.000"
+                 data-modal-weight="700 g"
+                 data-modal-components="Chorizo seco,Mortadela,Bondiola ahumada,Queso criollo,Queso ahumado,Morcilla blanca,Morcilla negra">
+                <div class="card-img-wrapper">
+                    <picture><source srcset="ahumada.avif" type="image/avif"><source srcset="ahumada.webp" type="image/webp"><img src="ahumada.jpeg" width="1080" height="1440" alt="Picada Ahumada" loading="lazy" decoding="async"></picture>
+                    <div class="card-img-overlay"></div>
+                    <span class="card-badge card-badge-special">ESPECIALIDAD · TOCÁ ACÁ PARA LA INFO</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-name">Picada Ahumada</h3>
+                    <p class="card-description">nuestra picada de especialidad, con toque ahumado</p>
+                    <div class="card-footer">
+                        <div class="card-price"><sup>$</sup>17.000</div>
+                        <button type="button" class="btn-cart-add" data-product-id="ahumada">🛒 Agregar</button>
+                    </div>
+                    <a href="https://wa.me/542920667796?text=Hola!%20Quiero%20encargar%20la%20Picada%20ahumada." target="_blank" rel="noopener" class="btn-quick-order">📲 Pedir por WhatsApp</a>
                 </div>
             </div>
 
@@ -2248,6 +2305,7 @@
     var QUICK_MESSAGES = {
         criolla:        'https://wa.me/542920667796?text=Hola!%20Quiero%20encargar%20la%20Picada%20criolla.',
         tradicional:    'https://wa.me/542920667796?text=Hola!%20Quiero%20encargar%20la%20Picada%20tradicional.',
+        ahumada:        'https://wa.me/542920667796?text=Hola!%20Quiero%20encargar%20la%20Picada%20ahumada.',
         odisea:         'https://wa.me/542920667796?text=Hola!%20Quiero%20encargar%20la%20Picada%20LA%20odisea.',
         simple:         'https://wa.me/542920667796?text=Hola!%20Quiero%20encargar%20la%20Picada%20simple.',
         'simple-vacio': 'https://wa.me/542920667796?text=Hola!%20Quiero%20encargar%20la%20Picada%20simple%20envasada%20al%20vacio.',
@@ -2410,6 +2468,7 @@
     var CART_PRODUCTS = {
         criolla:      { name: 'Picada Criolla',                    price: 13500, unit: '700 g' },
         tradicional:  { name: 'Picada Tradicional',                price: 16000, unit: '700 g' },
+        ahumada:      { name: 'Picada Ahumada',                    price: 17000, unit: '700 g' },
         odisea:       { name: 'La Odisea',                         price: 25000, unit: '900 g' },
         simple:       { name: 'Picada Simple',                     price: 12500, unit: '500 g' },
         'simple-vacio': { name: 'Picada Simple (envasada al vacío)', price: 12500, unit: '500 g' },
