@@ -91,7 +91,8 @@
 
         /* Objetivos táctiles cómodos para el dedo (mín. ~44px de Apple/Google) */
         .cta-btn, .btn-order, .btn-submit, .modal-close, .header-scroll,
-        .btn-cart-add, .btn-send-order, .floating-cart, .qty-btn, .cart-line-remove, .btn-quick-order {
+        .btn-cart-add, .btn-send-order, .floating-cart, .qty-btn, .cart-line-remove, .btn-quick-order,
+        .btn-share-link {
             min-height: 44px;
             touch-action: manipulation;   /* elimina el retardo de 300ms al tocar */
         }
@@ -687,6 +688,31 @@
         }
 
         .btn-quick-order:hover { background: rgba(37,211,102,0.22); transform: translateY(-1px); }
+
+        /* Botón "Copiar link" del modal: copia un link directo a esa picada
+           (mismo patrón que usa Crewmates para compartir producto por link). */
+        .btn-share-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            width: 100%;
+            margin-top: 0.7rem;
+            background: transparent;
+            color: var(--brand-parchment);
+            border: 1px solid rgba(217,204,176,0.35);
+            padding: 0.5rem 1rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+        }
+
+        .btn-share-link:hover { background: rgba(217,204,176,0.1); border-color: var(--brand-gold); transform: translateY(-1px); }
 
         /* Botón "enviar pedido por WhatsApp" del carrito: mismo look que .btn-order */
         .btn-send-order {
@@ -2068,6 +2094,7 @@
                 <a href="#" id="modalWaBtn" target="_blank" rel="noopener">📲 Encargar</a>
             </div>
             <a href="#" id="modalQuickOrderBtn" target="_blank" rel="noopener" class="btn-quick-order" style="display:none">📲 Pedir por WhatsApp</a>
+            <button type="button" id="modalShareBtn" class="btn-share-link">🔗 Copiar link</button>
         </div>
     </div>
 </div>
@@ -2291,8 +2318,13 @@
 (function () {
     'use strict';
 
-    var overlay  = document.getElementById('productModal');
-    var closeBtn = document.getElementById('modalCloseBtn');
+    var overlay   = document.getElementById('productModal');
+    var closeBtn  = document.getElementById('modalCloseBtn');
+    var shareBtn  = document.getElementById('modalShareBtn');
+
+    /* Id de la picada (o variante) que está mostrando el modal ahora mismo,
+       para armar el link de "Copiar link" siempre sobre lo que se ve. */
+    var currentProductId = '';
 
     /* Mensajes del botón rápido "Pedir por WhatsApp" (pide solo ese producto, sin pasar por el carrito) */
     var QUICK_MESSAGES = {
@@ -2323,6 +2355,8 @@
         var components  = card.dataset.modalComponents  || '';
         var productId   = card.dataset.productId        || '';
         var deadline    = card.dataset.modalDeadline    || '';
+
+        currentProductId = productId;
 
         document.getElementById('modalProductName').textContent = name;
         document.getElementById('modalDescription').textContent = desc;
@@ -2404,6 +2438,7 @@
                     btn.textContent = v.label;
                     btn.addEventListener('click', function () {
                         waBtn.dataset.productId = v.id;
+                        currentProductId = v.id;
                         if (QUICK_MESSAGES[v.id]) {
                             quickBtn.href = QUICK_MESSAGES[v.id];
                             quickBtn.style.display = '';
@@ -2447,6 +2482,51 @@
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') closeModal();
     });
+
+    /* "Copiar link": arma un link directo a la picada que está abierta
+       (o a la variante elegida) y lo copia al portapapeles. */
+    if (shareBtn) {
+        shareBtn.addEventListener('click', function () {
+            var link = location.origin + location.pathname + '#producto=' + currentProductId;
+            var original = shareBtn.textContent;
+            var listo = function () {
+                shareBtn.textContent = '✅ Copiado';
+                setTimeout(function () { shareBtn.textContent = original; }, 1500);
+            };
+            if (navigator.clipboard) navigator.clipboard.writeText(link).then(listo).catch(listo);
+            else listo();
+        });
+    }
+
+    /* Si alguien entra con un link tipo #producto=id (el que genera el botón
+       "Copiar link"), abrimos esa ficha directo. Si el id es el de una
+       variante (ej. "simple-vacio"), abrimos la ficha base y dejamos
+       seleccionada esa variante. */
+    function abrirDesdeHash() {
+        var m = location.hash.match(/^#producto=([a-z0-9-]+)$/i);
+        if (!m) return;
+        var id = m[1].toLowerCase();
+        var card = document.querySelector('.product-card[data-has-modal][data-product-id="' + id + '"]');
+        var variantId = null;
+        if (!card) {
+            Object.keys(VARIANT_GROUPS).forEach(function (baseId) {
+                VARIANT_GROUPS[baseId].forEach(function (v) {
+                    if (v.id === id) {
+                        card = document.querySelector('.product-card[data-has-modal][data-product-id="' + baseId + '"]');
+                        variantId = id;
+                    }
+                });
+            });
+        }
+        if (!card) return;
+        openModal(card);
+        if (variantId) {
+            var btnVariante = document.querySelector('#modalVariants .modal-variant-btn[data-variant="' + variantId + '"]');
+            if (btnVariante) btnVariante.click();
+        }
+    }
+    abrirDesdeHash();
+    window.addEventListener('hashchange', abrirDesdeHash);
 
 })();
 </script>
