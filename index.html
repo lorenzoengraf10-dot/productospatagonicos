@@ -1558,6 +1558,14 @@
         .aviso-pausa strong { color: var(--brand-gold-light); }
         @media (max-width: 480px) { .aviso-pausa { font-size: 0.95rem; margin-left: 12px; margin-right: 12px; } }
 
+        /* ── TESTIMONIOS ── */
+        #testimonios{max-width:900px;margin:0 auto;padding:20px 20px 8px;text-align:center}
+        #testimonios .testi-eyebrow{font-size:0.78rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--brand-gold);font-weight:700;margin:0 0 18px}
+        #testimonios .testi-list{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;list-style:none;padding:0;margin:0}
+        #testimonios .testi-item{flex:1 1 200px;max-width:260px;background:#20120b;border:1px solid rgba(200,146,42,.25);border-radius:14px;padding:16px 18px;text-align:left}
+        #testimonios .testi-item p{color:var(--brand-parchment);font-size:14.5px;line-height:1.45;margin:0 0 8px}
+        #testimonios .testi-item cite{display:block;font-style:normal;font-size:12.5px;color:var(--brand-gold-light);letter-spacing:.02em}
+
     </style>
 
     <!-- SEO: canonical, Open Graph, Twitter Card -->
@@ -1672,6 +1680,27 @@
               }
             }
           }
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            },
+            "author": {
+              "@type": "Person",
+              "name": "Salvador F."
+            },
+            "reviewBody": "Muy rica la picada criolla, excelente precio."
+          }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5",
+          "reviewCount": "1",
+          "bestRating": "5"
         }
       }
     },
@@ -1730,6 +1759,27 @@
               }
             }
           }
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            },
+            "author": {
+              "@type": "Person",
+              "name": "Gonzalo"
+            },
+            "reviewBody": "Gran atención y súper rica la picada ahumada."
+          }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5",
+          "reviewCount": "1",
+          "bestRating": "5"
         }
       }
     },
@@ -1788,6 +1838,27 @@
               }
             }
           }
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            },
+            "author": {
+              "@type": "Person",
+              "name": "Justino D."
+            },
+            "reviewBody": "El mejor precio calidad, y ya una tradición de la comarca."
+          }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5",
+          "reviewCount": "1",
+          "bestRating": "5"
         }
       }
     },
@@ -1846,6 +1917,27 @@
               }
             }
           }
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            },
+            "author": {
+              "@type": "Person",
+              "name": "Nicolás"
+            },
+            "reviewBody": "Muy rica, súper conforme."
+          }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5",
+          "reviewCount": "1",
+          "bestRating": "5"
         }
       }
     },
@@ -2255,6 +2347,29 @@
 
 <!-- El formulario de $2000 se reemplazó por el juego "Atrapá la Picada" (/juego/),
      que capta el email y entrega el cupón de forma más atractiva. -->
+
+<!-- ══════════ TESTIMONIOS ══════════ -->
+<section id="testimonios" aria-label="Testimonios de clientes">
+    <p class="testi-eyebrow">Lo que dicen nuestros clientes</p>
+    <ul class="testi-list">
+        <li class="testi-item">
+            <p>&ldquo;Muy rica la picada criolla, excelente precio.&rdquo;</p>
+            <cite>Salvador F. · Picada Criolla</cite>
+        </li>
+        <li class="testi-item">
+            <p>&ldquo;Gran atención y súper rica la picada ahumada.&rdquo;</p>
+            <cite>Gonzalo · Picada Ahumada</cite>
+        </li>
+        <li class="testi-item">
+            <p>&ldquo;El mejor precio calidad, y ya una tradición de la comarca.&rdquo;</p>
+            <cite>Justino D. · Picada Tradicional</cite>
+        </li>
+        <li class="testi-item">
+            <p>&ldquo;Muy rica, súper conforme.&rdquo;</p>
+            <cite>Nicolás · La Odisea</cite>
+        </li>
+    </ul>
+</section>
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
