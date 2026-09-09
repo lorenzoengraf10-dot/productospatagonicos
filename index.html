@@ -162,22 +162,30 @@
             animation: fadeUp 1.2s ease both;
         }
 
-        /* Logo de la marca, arriba del título */
+        /* Logo de la marca, arriba del título: medallón con las letras "PP" */
         .hero-logo {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 132px;
             height: 132px;
             margin: 0 auto 1.4rem;
-        }
-
-        .hero-logo img {
-            width: 100%;
-            height: 100%;
-            display: block;
-            object-fit: cover;
             border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, var(--brand-mid), var(--brand-brown) 75%);
             border: 2px solid rgba(200,146,42,0.75);
             box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+        }
+
+        .hero-logo-letters {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 3rem;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            background: linear-gradient(160deg, #f0e8d5 20%, var(--brand-gold-light) 60%, #c8922a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .header-pre {
@@ -191,6 +199,14 @@
             opacity: 0.9;
         }
 
+        /* El filter va en el wrapper, no en el h1: aplicar drop-shadow al mismo elemento
+           que tiene background-clip:text rompe el relleno de letras con ojales cerrados
+           (la "g" quedaba con la panza mal recortada) en Safari/iOS. Separando ambas capas
+           la sombra se calcula sobre el texto ya renderizado, sin tocar el clipping. */
+        .header-title-shadow {
+            filter: drop-shadow(0 2px 12px rgba(0,0,0,0.85));
+        }
+
         .header-title {
             font-family: 'Playfair Display', serif;
             font-size: clamp(3rem, 9vw, 7rem);
@@ -202,9 +218,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 0.3em;
-            /* drop-shadow (y no text-shadow) para que la sombra respete el texto con degradado
-               recortado, y el título se despegue de las luces del puente en la foto de fondo */
-            filter: drop-shadow(0 2px 12px rgba(0,0,0,0.85));
         }
 
         .header-divider {
@@ -2121,13 +2134,14 @@
     <div class="header-bg-lines"></div>
 
     <div class="header-emblem">
-        <picture class="hero-logo">
-            <source srcset="logo-pp.webp" type="image/webp">
-            <img src="logo-pp.jpg" width="320" height="320" alt="Logo de Productos Patagónicos" fetchpriority="high" decoding="async">
-        </picture>
-        <h1 class="header-title">
-            Productos Patagónicos
-        </h1>
+        <div class="hero-logo" aria-hidden="true">
+            <span class="hero-logo-letters">PP</span>
+        </div>
+        <div class="header-title-shadow">
+            <h1 class="header-title">
+                Productos Patagónicos
+            </h1>
+        </div>
         <p class="header-tagline">el 1er aplauso de un asado se lo lleva la picada</p>
     </div>
 
