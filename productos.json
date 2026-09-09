@@ -105,14 +105,12 @@
     },
     {
       "id": "embutidos",
-      "nombre": "Embutidos EV",
+      "nombre": "Chorizo Seco EV",
       "precio": 3000,
-      "porcion": "Envasados al vacío",
-      "porciones_texto": "Chorizo seco · Longaniza · Salame con queso",
+      "porcion": "Envasado al vacío",
+      "porciones_texto": "Chorizo seco",
       "componentes": [
-        "Chorizo seco",
-        "Longaniza",
-        "Salame con queso"
+        "Chorizo seco"
       ],
       "imagen": "embutidos.jpeg",
       "disponibilidad": "InStock",
