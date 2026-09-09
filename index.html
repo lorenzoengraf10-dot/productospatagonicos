@@ -162,30 +162,22 @@
             animation: fadeUp 1.2s ease both;
         }
 
-        /* Logo de la marca, arriba del título: medallón con las letras "PP" */
+        /* Logo de la marca, arriba del título */
         .hero-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: block;
             width: 132px;
             height: 132px;
             margin: 0 auto 1.4rem;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 30%, var(--brand-mid), var(--brand-brown) 75%);
-            border: 2px solid rgba(200,146,42,0.75);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.55);
         }
 
-        .hero-logo-letters {
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-size: 3rem;
-            line-height: 1;
-            letter-spacing: -0.03em;
-            background: linear-gradient(160deg, #f0e8d5 20%, var(--brand-gold-light) 60%, #c8922a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero-logo img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid rgba(200,146,42,0.75);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.55);
         }
 
         .header-pre {
@@ -2134,9 +2126,10 @@
     <div class="header-bg-lines"></div>
 
     <div class="header-emblem">
-        <div class="hero-logo" aria-hidden="true">
-            <span class="hero-logo-letters">PP</span>
-        </div>
+        <picture class="hero-logo">
+            <source srcset="logo-pp.webp" type="image/webp">
+            <img src="logo-pp.jpg" width="320" height="320" alt="Logo de Productos Patagónicos" fetchpriority="high" decoding="async">
+        </picture>
         <div class="header-title-shadow">
             <h1 class="header-title">
                 Productos Patagónicos
