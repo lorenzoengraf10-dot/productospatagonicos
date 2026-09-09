@@ -166,7 +166,7 @@
            de la marca (sin círculo ni foto de fondo) */
         .hero-logo {
             display: block;
-            width: 106px;
+            width: 190px;
             height: auto;
             margin: 0 auto 1.2rem;
             filter: drop-shadow(0 2px 10px rgba(0,0,0,0.6));
@@ -189,12 +189,16 @@
             opacity: 0.9;
         }
 
-        /* El filter va en el wrapper, no en el h1: aplicar drop-shadow al mismo elemento
-           que tiene background-clip:text rompe el relleno de letras con ojales cerrados
-           (la "g" quedaba con la panza mal recortada) en Safari/iOS. Separando ambas capas
-           la sombra se calcula sobre el texto ya renderizado, sin tocar el clipping. */
+        /* El título ya no se muestra (el logo "PP" cumple ese rol visualmente),
+           pero se deja en el HTML oculto visualmente para SEO y lectores de
+           pantalla: sigue siendo el <h1> real de la página. */
         .header-title-shadow {
-            filter: drop-shadow(0 2px 12px rgba(0,0,0,0.85));
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
         }
 
         .header-title {
@@ -1091,7 +1095,7 @@
             .header-emblem { padding: 2rem 1.2rem 1rem; }
             .header-pre { letter-spacing: 0.3em; font-size: 0.72rem; }
             .header-tagline { margin-bottom: 2rem; }
-            .hero-logo { width: 86px; height: auto; margin-bottom: 1rem; }
+            .hero-logo { width: 150px; height: auto; margin-bottom: 1rem; }
 
             /* Botones del hero a lo ancho y con buen tamaño para el dedo */
             .hero-cta { flex-direction: column; align-items: center; gap: 0.8rem; }
