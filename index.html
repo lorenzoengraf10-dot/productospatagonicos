@@ -1100,19 +1100,47 @@
                 font-size: 1rem;
             }
 
-            /* Una sola columna de productos, separadas para que se distingan */
+            /* Dos columnas de picadas, para ver más de una a la vez */
             .products-section { padding: 0 1rem 3rem; }
-            .products-grid { gap: 1rem; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
             .product-card { border-radius: 10px; overflow: hidden; }
+            .card-img-wrapper { height: 140px; }
+
+            .card-badge { font-size: 0.52rem; padding: 0.35rem 0.3rem; }
+
+            .card-body { padding: 0.8rem 0.7rem 0.9rem; }
+            .card-name { font-size: 1.05rem; margin-bottom: 0.25rem; }
+            .card-description {
+                font-size: 0.6rem;
+                margin-bottom: 0.6rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+            .card-price { font-size: 1.25rem; }
 
             /* Pie de tarjeta: precio arriba, botón grande abajo a lo ancho */
-            .card-footer { flex-direction: column; align-items: stretch; gap: 0.8rem; }
+            .card-footer { flex-direction: column; align-items: stretch; gap: 0.5rem; }
             .btn-order,
             .btn-order-soldout {
                 width: 100%;
                 justify-content: center;
                 padding: 1rem 1.4rem;
                 font-size: 1rem;
+            }
+            .btn-cart-add {
+                width: 100%;
+                justify-content: center;
+                padding: 0.55rem 0.5rem;
+                font-size: 0.62rem;
+                letter-spacing: 0.06em;
+            }
+            .btn-quick-order {
+                margin-top: 0.5rem;
+                padding: 0.42rem 0.5rem;
+                font-size: 0.58rem;
+                letter-spacing: 0.04em;
             }
 
             /* Oculta el "Explorar" para no tapar los botones en pantallas chicas */
