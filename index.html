@@ -1803,7 +1803,7 @@
         },
         "offers": {
           "@type": "Offer",
-          "price": "14000",
+          "price": "13500",
           "priceCurrency": "ARS",
           "availability": "https://schema.org/InStock",
           "url": "https://productospatagonicos.vercel.app/#picadas",
@@ -1974,7 +1974,7 @@
         },
         "offers": {
           "@type": "Offer",
-          "price": "14000",
+          "price": "15000",
           "priceCurrency": "ARS",
           "availability": "https://schema.org/InStock",
           "url": "https://productospatagonicos.vercel.app/#picadas",
@@ -2323,7 +2323,8 @@
                  data-modal-description="pican 6 y comen 3"
                  data-modal-img="mundialista.jpeg"
                  data-modal-badge="🔥 Más vendida"
-                 data-modal-price="$14.000"
+                 data-modal-price="$13.500"
+                 data-modal-old-price="$14.000"
                  data-modal-promo="🌸 Descuento de la primavera"
                  data-modal-weight="700 g"
                  data-modal-components="Chorizo seco,Mortadela,Morcilla blanca,Morcilla negra,Queso criollo,Queso de cerdo">
@@ -2337,7 +2338,10 @@
                     <p class="card-description">nuestra picada estrella, la que más eligen</p>
                     <div class="card-promo-tag">🌸 Descuento de la primavera</div>
                     <div class="card-footer">
-                        <div class="card-price"><sup>$</sup>14.000</div>
+                        <div class="card-price-group">
+                            <div class="card-price-old">Antes <s>$14.000</s></div>
+                            <div class="card-price"><sup>$</sup>13.500</div>
+                        </div>
                         <button type="button" class="btn-cart-add" data-product-id="criolla">🛒 Agregar</button>
                     </div>
                     <a href="https://wa.me/542920667796?text=Hola!%20Quiero%20encargar%20la%20Picada%20criolla." target="_blank" rel="noopener" class="btn-quick-order">📲 Pedir por WhatsApp</a>
@@ -2377,7 +2381,7 @@
                  data-modal-description="pican 6 y comen 4"
                  data-modal-img="tradicional.jpeg"
                  data-modal-badge=""
-                 data-modal-price="$14.000"
+                 data-modal-price="$15.000"
                  data-modal-old-price="$16.000"
                  data-modal-weight="700 g"
                  data-modal-components="Chorizo seco,Mortadela,Bondiola,Queso criollo,Morcilla blanca,Morcilla negra">
@@ -2392,7 +2396,7 @@
                     <div class="card-footer">
                         <div class="card-price-group">
                             <div class="card-price-old">Antes <s>$16.000</s></div>
-                            <div class="card-price"><sup>$</sup>14.000</div>
+                            <div class="card-price"><sup>$</sup>15.000</div>
                         </div>
                         <button type="button" class="btn-cart-add" data-product-id="tradicional">🛒 Agregar</button>
                     </div>
@@ -2524,13 +2528,13 @@
             <div class="ps-rank">1</div>
             <div class="ps-thumb"><picture><source srcset="mundialista.avif" type="image/avif"><source srcset="mundialista.webp" type="image/webp"><img src="mundialista.jpeg" width="1142" height="804" alt="Picada Criolla" loading="lazy" decoding="async"></picture></div>
             <div class="ps-info"><div class="ps-name">Picada Criolla</div><div class="ps-metatxt">700 g · pican 6, comen 3</div></div>
-            <div class="ps-price"><sup>$</sup>14.000<small>700 g</small></div>
+            <div class="ps-price"><s class="ps-old">$14.000</s><sup>$</sup>13.500<small>700 g</small></div>
         </div>
         <div class="ps-row">
             <div class="ps-rank">2</div>
             <div class="ps-thumb"><picture><source srcset="tradicional.avif" type="image/avif"><source srcset="tradicional.webp" type="image/webp"><img src="tradicional.jpeg" width="1080" height="1350" alt="Picada Tradicional" loading="lazy" decoding="async"></picture></div>
             <div class="ps-info"><div class="ps-name">Picada Tradicional</div><div class="ps-metatxt">700 g · pican 6, comen 4</div></div>
-            <div class="ps-price"><s class="ps-old">$16.000</s><sup>$</sup>14.000<small>700 g</small></div>
+            <div class="ps-price"><s class="ps-old">$16.000</s><sup>$</sup>15.000<small>700 g</small></div>
         </div>
         <div class="ps-row">
             <div class="ps-rank">3</div>
@@ -2905,6 +2909,12 @@
     function renderModalPrice(price, oldPrice, promo) {
         var box = document.getElementById('modalPrice');
         box.innerHTML = '';
+        if (promo) {
+            var tag = document.createElement('span');
+            tag.className = 'modal-promo-tag';
+            tag.textContent = promo;
+            box.appendChild(tag);
+        }
         if (oldPrice) {
             var old = document.createElement('span');
             old.className = 'modal-price-old';
@@ -2913,11 +2923,6 @@
             strike.textContent = oldPrice;
             old.appendChild(strike);
             box.appendChild(old);
-        } else if (promo) {
-            var tag = document.createElement('span');
-            tag.className = 'modal-promo-tag';
-            tag.textContent = promo;
-            box.appendChild(tag);
         }
         var now = document.createElement('span');
         now.innerHTML = price.replace('$', '<sup>$</sup>');
@@ -3125,8 +3130,8 @@
     var WHATSAPP_NUMBER = '542920667796';
 
     var CART_PRODUCTS = {
-        criolla:      { name: 'Picada Criolla',                    price: 14000, unit: '700 g' },
-        tradicional:  { name: 'Picada Tradicional',                price: 14000, unit: '700 g' },
+        criolla:      { name: 'Picada Criolla',                    price: 13500, unit: '700 g' },
+        tradicional:  { name: 'Picada Tradicional',                price: 15000, unit: '700 g' },
         ahumada:      { name: 'Picada Ahumada',                    price: 16000, unit: '800 g' },
         odisea:       { name: 'La Odisea',                         price: 22000, unit: '900 g' },
         simple:       { name: 'Picada Simple',                     price: 11500, unit: '500 g' },

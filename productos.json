@@ -15,7 +15,7 @@
     {
       "id": "criolla",
       "nombre": "Picada Criolla",
-      "precio": 14000,
+      "precio": 13500,
       "porcion": "700 g",
       "porciones_texto": "pican 6 y comen 3",
       "componentes": [
@@ -30,7 +30,8 @@
       "disponibilidad": "InStock",
       "temporada": false,
       "mas_vendida": true,
-      "promo": "Descuento de la primavera"
+      "promo": "Descuento de la primavera",
+      "precio_anterior": 14000
     },
     {
       "id": "ahumada",
@@ -56,7 +57,7 @@
     {
       "id": "tradicional",
       "nombre": "Picada Tradicional",
-      "precio": 14000,
+      "precio": 15000,
       "porcion": "700 g",
       "porciones_texto": "pican 6 y comen 4",
       "componentes": [
