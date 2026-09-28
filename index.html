@@ -342,6 +342,26 @@
         .game-cta .game-cta-text small { font-size: 0.82rem; opacity: 0.85; letter-spacing: 0.02em; }
         .game-cta .game-cta-arrow { font-size: 1.4rem; font-weight: 700; }
 
+        /* Cartel de primavera, justo después del hero */
+        .spring-banner {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            max-width: 720px;
+            width: calc(100% - 2rem);
+            margin: 1.6rem auto 2.2rem;
+            padding: 1.05rem 1.5rem;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #ff6f9c, #ffa3c0);
+            color: #3a0a1c;
+            box-shadow: 0 6px 26px rgba(255,111,156,0.4);
+        }
+
+        .spring-banner .spring-banner-emoji { font-size: 2rem; line-height: 1; }
+        .spring-banner .spring-banner-text { display: flex; flex-direction: column; gap: 2px; text-align: left; flex: 1; }
+        .spring-banner .spring-banner-text strong { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.35rem; letter-spacing: 0.1em; text-transform: uppercase; }
+        .spring-banner .spring-banner-text small { font-size: 0.95rem; letter-spacing: 0.02em; }
+
         @keyframes gamePulse {
             50% { box-shadow: 0 8px 30px rgba(200,146,42,0.65); }
         }
@@ -2226,7 +2246,19 @@
     </a>
 </header>
 
-<!-- ══════════ CTA DEL JUEGO (sobre las picadas) ══════════ -->
+<!-- ══════════ CARTEL DE PRIMAVERA (justo después del hero) ══════════ -->
+<div class="spring-banner">
+    <span class="spring-banner-emoji" aria-hidden="true">🌸</span>
+    <span class="spring-banner-text">
+        <strong>Recibamos la primavera</strong>
+        <small>con la mejor calidad en estos embutidos artesanales</small>
+    </span>
+</div>
+
+<!-- ══════════ CTA DEL JUEGO — SACADO TEMPORALMENTE ══════════
+     Para volver a mostrarlo: descomentar este bloque. Ojo: el modo vacaciones
+     (MODO_VACACIONES) manda a los botones a #jugar, así que si se reactiva
+     hay que restaurar el bloque también.
 <a href="juego/" id="jugar" class="game-cta">
     <span class="game-cta-emoji">🎮</span>
     <span class="game-cta-text">
@@ -2235,6 +2267,7 @@
     </span>
     <span class="game-cta-arrow">▸</span>
 </a>
+-->
 
 <!-- ══════════ PRODUCTS ══════════ -->
 <section id="picadas">
