@@ -72,7 +72,7 @@
     {
       "id": "odisea",
       "nombre": "La Odisea",
-      "precio": 26000,
+      "precio": 25000,
       "porcion": "900 g",
       "porciones_texto": "pican 7 comen 5",
       "componentes": [
