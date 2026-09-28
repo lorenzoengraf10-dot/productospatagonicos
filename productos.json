@@ -10,12 +10,12 @@
     "url": "https://productospatagonicos.vercel.app/"
   },
   "moneda": "ARS",
-  "promo_global": "Descuento primaveral 🌸 · Súper precios en todas las picadas",
+  "cartel": "La mejor calidad en estas picadas primaverales 🌸",
   "productos": [
     {
       "id": "criolla",
       "nombre": "Picada Criolla",
-      "precio": 13500,
+      "precio": 15000,
       "porcion": "700 g",
       "porciones_texto": "pican 6 y comen 3",
       "componentes": [
@@ -29,14 +29,12 @@
       "imagen": "mundialista.jpeg",
       "disponibilidad": "InStock",
       "temporada": false,
-      "mas_vendida": true,
-      "promo": "Descuento de la primavera",
-      "precio_anterior": 14000
+      "mas_vendida": true
     },
     {
       "id": "ahumada",
       "nombre": "Picada Ahumada",
-      "precio": 16000,
+      "precio": 19000,
       "porcion": "800 g",
       "porciones_texto": "pican 6 y comen 4",
       "componentes": [
@@ -51,13 +49,12 @@
       "imagen": "ahumada.jpeg",
       "disponibilidad": "InStock",
       "temporada": false,
-      "especialidad": true,
-      "precio_anterior": 18000
+      "especialidad": true
     },
     {
       "id": "tradicional",
       "nombre": "Picada Tradicional",
-      "precio": 15000,
+      "precio": 17000,
       "porcion": "700 g",
       "porciones_texto": "pican 6 y comen 4",
       "componentes": [
@@ -70,13 +67,12 @@
       ],
       "imagen": "tradicional.jpeg",
       "disponibilidad": "InStock",
-      "temporada": false,
-      "precio_anterior": 16000
+      "temporada": false
     },
     {
       "id": "odisea",
       "nombre": "La Odisea",
-      "precio": 22000,
+      "precio": 26000,
       "porcion": "900 g",
       "porciones_texto": "pican 7 comen 5",
       "componentes": [
@@ -90,13 +86,12 @@
       ],
       "imagen": "odisea.jpeg",
       "disponibilidad": "InStock",
-      "temporada": false,
-      "precio_anterior": 25000
+      "temporada": false
     },
     {
       "id": "simple",
       "nombre": "Picada Simple",
-      "precio": 11500,
+      "precio": 14000,
       "porcion": "500 g",
       "porciones_texto": "pican 4 comen 2",
       "componentes": [
@@ -107,8 +102,7 @@
       ],
       "imagen": "simple.jpeg",
       "disponibilidad": "InStock",
-      "temporada": false,
-      "precio_anterior": 13000
+      "temporada": false
     },
     {
       "id": "embutidos",
