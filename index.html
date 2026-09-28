@@ -77,6 +77,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 46px;
             -webkit-text-size-adjust: 100%;   /* evita que iOS agrande el texto al rotar */
             text-size-adjust: 100%;
         }
@@ -424,6 +425,8 @@
         .product-card {
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
             cursor: pointer;
             background: var(--brand-brown);
             animation: fadeUp 0.8s ease both;
@@ -500,6 +503,7 @@
         }
 
         .card-body {
+            flex: 1 1 auto;
             padding: 1.5rem 1.8rem 1.8rem;
             background: linear-gradient(to bottom, #2e1710, #1f0f09);
             border-top: 1px solid rgba(200,146,42,0.2);
@@ -544,6 +548,42 @@
             font-size: 0.5em;
             vertical-align: super;
             color: var(--brand-gold);
+        }
+
+        /* Precio de antes (tachado) + precio de ahora, y etiqueta de promo */
+        .card-price-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .card-price-old {
+            font-size: 0.95rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--brand-parchment);
+            opacity: 0.8;
+            line-height: 1;
+        }
+
+        .card-price-old s {
+            text-decoration-thickness: 2px;
+            text-decoration-color: #ff6b81;
+        }
+
+        .card-promo-tag {
+            display: inline-block;
+            margin-bottom: 0.9rem;
+            background: rgba(255,140,170,0.16);
+            color: #ffb3c6;
+            border: 1px solid rgba(255,140,170,0.4);
+            border-radius: 20px;
+            padding: 0.2rem 0.7rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            line-height: 1.2;
         }
 
         .btn-order {
@@ -1126,6 +1166,8 @@
                 overflow: hidden;
             }
             .card-price { font-size: 1.25rem; }
+            .card-price-old { font-size: 0.7rem; }
+            .card-promo-tag { font-size: 0.52rem; padding: 0.15rem 0.45rem; margin-bottom: 0.55rem; }
 
             /* Pie de tarjeta: precio arriba, botón grande abajo a lo ancho */
             .card-footer { flex-direction: column; align-items: stretch; gap: 0.5rem; }
@@ -1399,6 +1441,38 @@
             color: var(--brand-gold);
         }
 
+        .modal-price-old {
+            display: block;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 400;
+            font-size: 1.05rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--brand-parchment);
+            opacity: 0.8;
+            margin-bottom: 0.4rem;
+        }
+
+        .modal-price-old s {
+            text-decoration-thickness: 2px;
+            text-decoration-color: #ff6b81;
+        }
+
+        .modal-promo-tag {
+            display: inline-block;
+            background: rgba(255,140,170,0.16);
+            color: #ffb3c6;
+            border: 1px solid rgba(255,140,170,0.4);
+            border-radius: 20px;
+            padding: 0.22rem 0.75rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
         .modal-close {
             position: absolute;
             top: 1rem;
@@ -1564,6 +1638,7 @@
         #prueba-social .ps-row--soldout .ps-thumb img{filter:grayscale(0.85) brightness(0.55)}
         #prueba-social .ps-price{flex:0 0 auto;text-align:right;font-family:'Playfair Display',serif;font-weight:900;font-size:23px;color:var(--brand-gold-light)}
         #prueba-social .ps-price sup{font-size:13px;top:-.5em}
+        #prueba-social .ps-price .ps-old{display:block;font-family:'Barlow Condensed',sans-serif;font-weight:400;font-size:14px;color:var(--brand-parchment);opacity:.75;letter-spacing:.03em;text-decoration-thickness:2px;text-decoration-color:#ff6b81;margin-bottom:2px}
         #prueba-social .ps-price small{display:block;font-family:'Barlow Condensed';font-weight:400;font-size:13px;color:var(--brand-parchment);letter-spacing:.04em}
         #prueba-social .ps-custom{margin:38px auto 0;max-width:820px;text-align:center;background:#20120b;border:1px solid rgba(200,146,42,.3);border-radius:16px;padding:26px 24px}
         #prueba-social .ps-custom h4{font-family:'Playfair Display',serif;font-weight:700;font-size:23px;color:var(--brand-cream);margin-bottom:8px}
@@ -1592,6 +1667,52 @@
         }
         .aviso-pausa strong { color: var(--brand-gold-light); }
         @media (max-width: 480px) { .aviso-pausa { font-size: 0.95rem; margin-left: 12px; margin-right: 12px; } }
+
+        /* ── CARTEL FLOTANTE DE PROMO (cinta que se repite, acompaña al hacer scroll) ── */
+        .promo-ticker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 400;
+            height: calc(34px + env(safe-area-inset-top, 0px));
+            padding-top: env(safe-area-inset-top, 0px);
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(90deg, #a5761c, #e8b84b 50%, #a5761c);
+            color: #1a0e0a;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        }
+
+        .promo-track {
+            display: flex;
+            width: max-content;
+            animation: promoScroll 32s linear infinite;
+        }
+
+        .promo-item {
+            flex: 0 0 auto;
+            padding-right: 2.2rem;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        @keyframes promoScroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .promo-ticker { height: auto; min-height: 34px; padding: 6px 12px; justify-content: center; }
+            .promo-track { animation: none; width: auto; }
+            .promo-item { white-space: normal; text-align: center; padding-right: 0; line-height: 1.2; }
+            .promo-item ~ .promo-item { display: none; }
+        }
 
         /* ── TESTIMONIOS ── */
         #testimonios{max-width:1100px;margin:0 auto;padding:20px 0 8px;text-align:center}
@@ -1638,7 +1759,7 @@
       "image": "https://productospatagonicos.vercel.app/mundialista.jpeg",
       "url": "https://productospatagonicos.vercel.app/",
       "telephone": "+542920667796",
-      "priceRange": "$3.000-$25.000",
+      "priceRange": "$3.000-$22.000",
       "servesCuisine": "Picadas y embutidos artesanales",
       "address": {
         "@type": "PostalAddress",
@@ -1761,7 +1882,7 @@
         },
         "offers": {
           "@type": "Offer",
-          "price": "18000",
+          "price": "16000",
           "priceCurrency": "ARS",
           "availability": "https://schema.org/InStock",
           "url": "https://productospatagonicos.vercel.app/#picadas",
@@ -1853,7 +1974,7 @@
         },
         "offers": {
           "@type": "Offer",
-          "price": "16000",
+          "price": "14000",
           "priceCurrency": "ARS",
           "availability": "https://schema.org/InStock",
           "url": "https://productospatagonicos.vercel.app/#picadas",
@@ -1932,7 +2053,7 @@
         },
         "offers": {
           "@type": "Offer",
-          "price": "25000",
+          "price": "22000",
           "priceCurrency": "ARS",
           "availability": "https://schema.org/InStock",
           "url": "https://productospatagonicos.vercel.app/#picadas",
@@ -2011,7 +2132,7 @@
         },
         "offers": {
           "@type": "Offer",
-          "price": "13000",
+          "price": "11500",
           "priceCurrency": "ARS",
           "availability": "https://schema.org/InStock",
           "url": "https://productospatagonicos.vercel.app/#picadas",
@@ -2119,6 +2240,22 @@
 </head>
 <body>
 
+<!-- ══════════ CARTEL FLOTANTE DE PROMO ══════════
+     Cinta fija arriba que se repite mientras se hace scroll. Para sacarla: borrar este bloque. -->
+<div class="promo-ticker" role="region" aria-label="Promoción de primavera">
+    <div class="promo-track">
+            <span class="promo-item">• Descuento primaveral 🌸 • Súper precios en todas las picadas</span>
+            <span class="promo-item">• Descuento primaveral 🌸 • Súper precios en todas las picadas</span>
+            <span class="promo-item">• Descuento primaveral 🌸 • Súper precios en todas las picadas</span>
+            <span class="promo-item">• Descuento primaveral 🌸 • Súper precios en todas las picadas</span>
+            <span class="promo-item" aria-hidden="true">• Descuento primaveral 🌸 • Súper precios en todas las picadas</span>
+            <span class="promo-item" aria-hidden="true">• Descuento primaveral 🌸 • Súper precios en todas las picadas</span>
+            <span class="promo-item" aria-hidden="true">• Descuento primaveral 🌸 • Súper precios en todas las picadas</span>
+            <span class="promo-item" aria-hidden="true">• Descuento primaveral 🌸 • Súper precios en todas las picadas</span>
+    </div>
+</div>
+<script>if (window.MODO_VACACIONES) { document.querySelector('.promo-ticker').style.display = 'none'; }</script>
+
 
 <!-- ══════════ HERO ══════════ -->
 <header>
@@ -2187,6 +2324,7 @@
                  data-modal-img="mundialista.jpeg"
                  data-modal-badge="🔥 Más vendida"
                  data-modal-price="$14.000"
+                 data-modal-promo="🌸 Descuento de la primavera"
                  data-modal-weight="700 g"
                  data-modal-components="Chorizo seco,Mortadela,Morcilla blanca,Morcilla negra,Queso criollo,Queso de cerdo">
                 <div class="card-img-wrapper">
@@ -2197,6 +2335,7 @@
                 <div class="card-body">
                     <h3 class="card-name">Picada Criolla</h3>
                     <p class="card-description">nuestra picada estrella, la que más eligen</p>
+                    <div class="card-promo-tag">🌸 Descuento de la primavera</div>
                     <div class="card-footer">
                         <div class="card-price"><sup>$</sup>14.000</div>
                         <button type="button" class="btn-cart-add" data-product-id="criolla">🛒 Agregar</button>
@@ -2210,7 +2349,8 @@
                  data-modal-description="pican 6 y comen 4"
                  data-modal-img="ahumada.jpeg"
                  data-modal-badge="⭐ Especialidad"
-                 data-modal-price="$18.000"
+                 data-modal-price="$16.000"
+                 data-modal-old-price="$18.000"
                  data-modal-weight="800 g"
                  data-modal-components="Chorizo seco,Mortadela,Bondiola ahumada,Queso criollo,Queso ahumado,Morcilla blanca,Morcilla negra">
                 <div class="card-img-wrapper">
@@ -2222,7 +2362,10 @@
                     <h3 class="card-name">Picada Ahumada</h3>
                     <p class="card-description">nuestra picada de especialidad, con toque ahumado</p>
                     <div class="card-footer">
-                        <div class="card-price"><sup>$</sup>18.000</div>
+                        <div class="card-price-group">
+                            <div class="card-price-old">Antes <s>$18.000</s></div>
+                            <div class="card-price"><sup>$</sup>16.000</div>
+                        </div>
                         <button type="button" class="btn-cart-add" data-product-id="ahumada">🛒 Agregar</button>
                     </div>
                     <a href="https://wa.me/542920667796?text=Hola!%20Quiero%20encargar%20la%20Picada%20ahumada." target="_blank" rel="noopener" class="btn-quick-order">📲 Pedir por WhatsApp</a>
@@ -2234,7 +2377,8 @@
                  data-modal-description="pican 6 y comen 4"
                  data-modal-img="tradicional.jpeg"
                  data-modal-badge=""
-                 data-modal-price="$16.000"
+                 data-modal-price="$14.000"
+                 data-modal-old-price="$16.000"
                  data-modal-weight="700 g"
                  data-modal-components="Chorizo seco,Mortadela,Bondiola,Queso criollo,Morcilla blanca,Morcilla negra">
                 <div class="card-img-wrapper">
@@ -2246,7 +2390,10 @@
                     <h3 class="card-name">Picada Tradicional</h3>
                     <p class="card-description">nuestra picada original, la que lo empezó todo</p>
                     <div class="card-footer">
-                        <div class="card-price"><sup>$</sup>16.000</div>
+                        <div class="card-price-group">
+                            <div class="card-price-old">Antes <s>$16.000</s></div>
+                            <div class="card-price"><sup>$</sup>14.000</div>
+                        </div>
                         <button type="button" class="btn-cart-add" data-product-id="tradicional">🛒 Agregar</button>
                     </div>
                     <a href="https://wa.me/542920667796?text=Hola!%20Quiero%20encargar%20la%20Picada%20tradicional." target="_blank" rel="noopener" class="btn-quick-order">📲 Pedir por WhatsApp</a>
@@ -2258,7 +2405,8 @@
                  data-modal-description="pican 7 comen 5"
                  data-modal-img="odisea.jpeg"
                  data-modal-badge=""
-                 data-modal-price="$25.000"
+                 data-modal-price="$22.000"
+                 data-modal-old-price="$25.000"
                  data-modal-weight="900 g"
                  data-modal-components="Queso criollo,Chorizo seco,Queso pategras,Longaniza española,Salame con queso,Bondiola,Mortadela">
                 <div class="card-img-wrapper">
@@ -2270,7 +2418,10 @@
                     <h3 class="card-name">La Odisea</h3>
                     <p class="card-description"> La experiencia digna de dioses</p>
                     <div class="card-footer">
-                        <div class="card-price"><sup>$</sup>25.000</div>
+                        <div class="card-price-group">
+                            <div class="card-price-old">Antes <s>$25.000</s></div>
+                            <div class="card-price"><sup>$</sup>22.000</div>
+                        </div>
                         <button type="button" class="btn-cart-add" data-product-id="odisea">🛒 Agregar</button>
                     </div>
                     <a href="https://wa.me/542920667796?text=Hola!%20Quiero%20encargar%20la%20Picada%20LA%20odisea." target="_blank" rel="noopener" class="btn-quick-order">📲 Pedir por WhatsApp</a>
@@ -2282,7 +2433,8 @@
                  data-modal-description="pican 4 comen 2"
                  data-modal-img="simple.jpeg"
                  data-modal-badge=""
-                 data-modal-price="$13.000"
+                 data-modal-price="$11.500"
+                 data-modal-old-price="$13.000"
                  data-modal-weight="500 g"
                  data-modal-components="Chorizo seco,Mortadela,Queso criollo,Bondiola">
                 <div class="card-img-wrapper">
@@ -2294,7 +2446,10 @@
                     <h3 class="card-name">Picada Simple</h3>
                     <p class="card-description">mas pequeña el mismo sabor</p>
                     <div class="card-footer">
-                        <div class="card-price"><sup>$</sup>13.000</div>
+                        <div class="card-price-group">
+                            <div class="card-price-old">Antes <s>$13.000</s></div>
+                            <div class="card-price"><sup>$</sup>11.500</div>
+                        </div>
                         <button type="button" class="btn-cart-add" data-product-id="simple">🛒 Agregar</button>
                     </div>
                     <a href="https://wa.me/542920667796?text=Hola!%20Quiero%20encargar%20la%20Picada%20simple." target="_blank" rel="noopener" class="btn-quick-order">📲 Pedir por WhatsApp</a>
@@ -2375,19 +2530,19 @@
             <div class="ps-rank">2</div>
             <div class="ps-thumb"><picture><source srcset="tradicional.avif" type="image/avif"><source srcset="tradicional.webp" type="image/webp"><img src="tradicional.jpeg" width="1080" height="1350" alt="Picada Tradicional" loading="lazy" decoding="async"></picture></div>
             <div class="ps-info"><div class="ps-name">Picada Tradicional</div><div class="ps-metatxt">700 g · pican 6, comen 4</div></div>
-            <div class="ps-price"><sup>$</sup>16.000<small>700 g</small></div>
+            <div class="ps-price"><s class="ps-old">$16.000</s><sup>$</sup>14.000<small>700 g</small></div>
         </div>
         <div class="ps-row">
             <div class="ps-rank">3</div>
             <div class="ps-thumb"><picture><source srcset="odisea.avif" type="image/avif"><source srcset="odisea.webp" type="image/webp"><img src="odisea.jpeg" width="1024" height="1280" alt="La Odisea" loading="lazy" decoding="async"></picture></div>
             <div class="ps-info"><div class="ps-name">La Odisea</div><div class="ps-metatxt">900 g · pican 7, comen 5</div></div>
-            <div class="ps-price"><sup>$</sup>25.000<small>900 g</small></div>
+            <div class="ps-price"><s class="ps-old">$25.000</s><sup>$</sup>22.000<small>900 g</small></div>
         </div>
         <div class="ps-row">
             <div class="ps-rank">4</div>
             <div class="ps-thumb"><picture><source srcset="simple.avif" type="image/avif"><source srcset="simple.webp" type="image/webp"><img src="simple.jpeg" width="1080" height="1350" alt="Picada Simple" loading="lazy" decoding="async"></picture></div>
             <div class="ps-info"><div class="ps-name">Picada Simple</div><div class="ps-metatxt">500 g · pican 4, comen 2</div></div>
-            <div class="ps-price"><sup>$</sup>13.000<small>500 g</small></div>
+            <div class="ps-price"><s class="ps-old">$13.000</s><sup>$</sup>11.500<small>500 g</small></div>
         </div>
     </div>
 
@@ -2740,9 +2895,34 @@
     var VARIANT_GROUPS = {
         simple: [
             { id: 'simple',       label: 'Normal' },
-            { id: 'simple-vacio', label: 'Envasada al vacío' }
+            /* La envasada al vacío queda afuera del descuento: mantiene su precio de siempre */
+            { id: 'simple-vacio', label: 'Envasada al vacío', price: '$13.000', oldPrice: '', promo: '' }
         ]
     };
+
+    /* Precio del modal: si hay descuento muestra "Antes $X" tachado arriba del precio nuevo;
+       si es una promo sin cambio de precio, muestra la etiqueta de promo. */
+    function renderModalPrice(price, oldPrice, promo) {
+        var box = document.getElementById('modalPrice');
+        box.innerHTML = '';
+        if (oldPrice) {
+            var old = document.createElement('span');
+            old.className = 'modal-price-old';
+            old.appendChild(document.createTextNode('Antes '));
+            var strike = document.createElement('s');
+            strike.textContent = oldPrice;
+            old.appendChild(strike);
+            box.appendChild(old);
+        } else if (promo) {
+            var tag = document.createElement('span');
+            tag.className = 'modal-promo-tag';
+            tag.textContent = promo;
+            box.appendChild(tag);
+        }
+        var now = document.createElement('span');
+        now.innerHTML = price.replace('$', '<sup>$</sup>');
+        box.appendChild(now);
+    }
 
     function openModal(card) {
         var name        = card.dataset.modalName        || '';
@@ -2750,6 +2930,8 @@
         var img         = card.dataset.modalImg         || '';
         var badge       = card.dataset.modalBadge       || '';
         var price       = card.dataset.modalPrice       || '';
+        var oldPrice    = card.dataset.modalOldPrice    || '';
+        var promo       = card.dataset.modalPromo       || '';
         var weight      = card.dataset.modalWeight      || '';
         var components  = card.dataset.modalComponents  || '';
         var productId   = card.dataset.productId        || '';
@@ -2759,7 +2941,7 @@
 
         document.getElementById('modalProductName').textContent = name;
         document.getElementById('modalDescription').textContent = desc;
-        document.getElementById('modalPrice').innerHTML = price.replace('$', '<sup>$</sup>');
+        renderModalPrice(price, oldPrice, promo);
 
         var imgEl = document.getElementById('modalImg');
         imgEl.src = img;
@@ -2838,6 +3020,11 @@
                     btn.addEventListener('click', function () {
                         waBtn.dataset.productId = v.id;
                         currentProductId = v.id;
+                        if (v.price) {
+                            renderModalPrice(v.price, v.oldPrice || '', v.promo || '');
+                        } else {
+                            renderModalPrice(price, oldPrice, promo);
+                        }
                         if (QUICK_MESSAGES[v.id]) {
                             quickBtn.href = QUICK_MESSAGES[v.id];
                             quickBtn.style.display = '';
@@ -2939,10 +3126,10 @@
 
     var CART_PRODUCTS = {
         criolla:      { name: 'Picada Criolla',                    price: 14000, unit: '700 g' },
-        tradicional:  { name: 'Picada Tradicional',                price: 16000, unit: '700 g' },
-        ahumada:      { name: 'Picada Ahumada',                    price: 18000, unit: '800 g' },
-        odisea:       { name: 'La Odisea',                         price: 25000, unit: '900 g' },
-        simple:       { name: 'Picada Simple',                     price: 13000, unit: '500 g' },
+        tradicional:  { name: 'Picada Tradicional',                price: 14000, unit: '700 g' },
+        ahumada:      { name: 'Picada Ahumada',                    price: 16000, unit: '800 g' },
+        odisea:       { name: 'La Odisea',                         price: 22000, unit: '900 g' },
+        simple:       { name: 'Picada Simple',                     price: 11500, unit: '500 g' },
         'simple-vacio': { name: 'Picada Simple (envasada al vacío)', price: 13000, unit: '500 g' },
         embutidos:    { name: 'Chorizo Seco EV',                    price: 3000,  unit: 'Envasado al vacío' }
     };
