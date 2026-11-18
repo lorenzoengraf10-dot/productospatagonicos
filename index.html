@@ -77,7 +77,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 46px;
             -webkit-text-size-adjust: 100%;   /* evita que iOS agrande el texto al rotar */
             text-size-adjust: 100%;
         }
@@ -342,25 +341,6 @@
         .game-cta .game-cta-text small { font-size: 0.82rem; opacity: 0.85; letter-spacing: 0.02em; }
         .game-cta .game-cta-arrow { font-size: 1.4rem; font-weight: 700; }
 
-        /* Cartel de primavera, justo después del hero */
-        .spring-banner {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            max-width: 720px;
-            width: calc(100% - 2rem);
-            margin: 1.6rem auto 2.2rem;
-            padding: 1.05rem 1.5rem;
-            border-radius: 6px;
-            background: linear-gradient(135deg, #ff6f9c, #ffa3c0);
-            color: #3a0a1c;
-            box-shadow: 0 6px 26px rgba(255,111,156,0.4);
-        }
-
-        .spring-banner .spring-banner-emoji { font-size: 2rem; line-height: 1; }
-        .spring-banner .spring-banner-text { display: flex; flex-direction: column; gap: 2px; text-align: left; flex: 1; }
-        .spring-banner .spring-banner-text strong { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.35rem; letter-spacing: 0.1em; text-transform: uppercase; }
-        .spring-banner .spring-banner-text small { font-size: 0.95rem; letter-spacing: 0.02em; }
 
         @keyframes gamePulse {
             50% { box-shadow: 0 8px 30px rgba(200,146,42,0.65); }
@@ -1619,52 +1599,6 @@
         .aviso-pausa strong { color: var(--brand-gold-light); }
         @media (max-width: 480px) { .aviso-pausa { font-size: 0.95rem; margin-left: 12px; margin-right: 12px; } }
 
-        /* ── CARTEL FLOTANTE DE PROMO (cinta que se repite, acompaña al hacer scroll) ── */
-        .promo-ticker {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 400;
-            height: calc(34px + env(safe-area-inset-top, 0px));
-            padding-top: env(safe-area-inset-top, 0px);
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            background: linear-gradient(90deg, #ff6f9c, #ffa3c0 50%, #ff6f9c);
-            color: #3a0a1c;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-        }
-
-        .promo-track {
-            display: flex;
-            width: max-content;
-            animation: promoScroll 40s linear infinite;
-        }
-
-        .promo-item {
-            flex: 0 0 auto;
-            padding-right: 2.2rem;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        @keyframes promoScroll {
-            from { transform: translateX(0); }
-            to   { transform: translateX(-50%); }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .promo-ticker { height: auto; min-height: 34px; padding: 6px 12px; justify-content: center; }
-            .promo-track { animation: none; width: auto; }
-            .promo-item { white-space: normal; text-align: center; padding-right: 0; line-height: 1.2; }
-            .promo-item ~ .promo-item { display: none; }
-        }
-
         /* ── TESTIMONIOS ── */
         #testimonios{max-width:1100px;margin:0 auto;padding:20px 0 8px;text-align:center}
         #testimonios .testi-eyebrow{font-size:0.78rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--brand-gold);font-weight:700;margin:0 0 18px;padding:0 20px}
@@ -2191,24 +2125,6 @@
 </head>
 <body>
 
-<!-- ══════════ CARTEL FLOTANTE DE PROMO ══════════
-     Cinta fija arriba que se repite mientras se hace scroll. Para sacarla: borrar este bloque. -->
-<div class="promo-ticker" role="region" aria-label="Picadas primaverales">
-    <div class="promo-track">
-            <span class="promo-item">• La mejor calidad en estas picadas primaverales 🌸</span>
-            <span class="promo-item">• La mejor calidad en estas picadas primaverales 🌸</span>
-            <span class="promo-item">• La mejor calidad en estas picadas primaverales 🌸</span>
-            <span class="promo-item">• La mejor calidad en estas picadas primaverales 🌸</span>
-            <span class="promo-item">• La mejor calidad en estas picadas primaverales 🌸</span>
-            <span class="promo-item" aria-hidden="true">• La mejor calidad en estas picadas primaverales 🌸</span>
-            <span class="promo-item" aria-hidden="true">• La mejor calidad en estas picadas primaverales 🌸</span>
-            <span class="promo-item" aria-hidden="true">• La mejor calidad en estas picadas primaverales 🌸</span>
-            <span class="promo-item" aria-hidden="true">• La mejor calidad en estas picadas primaverales 🌸</span>
-            <span class="promo-item" aria-hidden="true">• La mejor calidad en estas picadas primaverales 🌸</span>
-    </div>
-</div>
-<script>if (window.MODO_VACACIONES) { document.querySelector('.promo-ticker').style.display = 'none'; }</script>
-
 
 <!-- ══════════ HERO ══════════ -->
 <header>
@@ -2246,19 +2162,7 @@
     </a>
 </header>
 
-<!-- ══════════ CARTEL DE PRIMAVERA (justo después del hero) ══════════ -->
-<div class="spring-banner">
-    <span class="spring-banner-emoji" aria-hidden="true">🌸</span>
-    <span class="spring-banner-text">
-        <strong>Recibamos la primavera</strong>
-        <small>con la mejor calidad en estos embutidos artesanales</small>
-    </span>
-</div>
-
-<!-- ══════════ CTA DEL JUEGO — SACADO TEMPORALMENTE ══════════
-     Para volver a mostrarlo: descomentar este bloque. Ojo: el modo vacaciones
-     (MODO_VACACIONES) manda a los botones a #jugar, así que si se reactiva
-     hay que restaurar el bloque también.
+<!-- ══════════ CTA DEL JUEGO (sobre las picadas) ══════════ -->
 <a href="juego/" id="jugar" class="game-cta">
     <span class="game-cta-emoji">🎮</span>
     <span class="game-cta-text">
@@ -2267,7 +2171,6 @@
     </span>
     <span class="game-cta-arrow">▸</span>
 </a>
--->
 
 <!-- ══════════ PRODUCTS ══════════ -->
 <section id="picadas">
